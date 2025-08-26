@@ -31,12 +31,8 @@
         Desa</a>
       <a href="{{ route('infografis.index') }}"
         class="{{ request()->routeIs('infografis.*') ? 'border-b-2 border-white' : 'hover:text-yellow-300' }}">Infografis</a>
-      <a href="#" class="hover:text-yellow-300">Listing</a>
-      <a href="#" class="hover:text-yellow-300">IDM</a>
       <a href="{{ route('news.index') }}"
         class="{{ request()->routeIs('news.*') ? 'border-b-2 border-white' : 'hover:text-yellow-300' }}">Berita</a>
-      <a href="#" class="hover:text-yellow-300">Belanja</a>
-      <a href="#" class="hover:text-yellow-300">PPID</a>
 
       <!-- Auth Menu -->
       <div class="relative" x-data="{ userOpen: false }">
@@ -96,12 +92,8 @@
       Desa</a>
     <a href="{{ route('infografis.index') }}"
       class="block {{ request()->routeIs('infografis.*') ? 'border-b border-white pb-1' : 'hover:text-yellow-300' }}">Infografis</a>
-    <a href="#" class="block hover:text-yellow-300">Listing</a>
-    <a href="#" class="block hover:text-yellow-300">IDM</a>
     <a href="{{ route('news.index') }}"
       class="block {{ request()->routeIs('news.*') ? 'border-b border-white pb-1' : 'hover:text-yellow-300' }}">Berita</a>
-    <a href="#" class="block hover:text-yellow-300">Belanja</a>
-    <a href="#" class="block hover:text-yellow-300">PPID</a>
 
     @guest
       <div x-data="{ openLogin: false, tab: 'login' }" class="w-full">
