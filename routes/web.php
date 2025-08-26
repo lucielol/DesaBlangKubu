@@ -40,6 +40,10 @@ Route::middleware('auth')->group(function () {
         // Route of complaints
         Route::resource('complaint', ComplaintController::class)->except('store');
 
+        // Route of village profile
+        Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('dashboard.profile.edit');
+        Route::put('/profile/update', [ProfileController::class, 'update'])->name('dashboard.profile.update');
+
         // redirect to dashboard when access url /dashboard/letter
         Route::get('letter', function () {
             return redirect()->to('/dashboard');

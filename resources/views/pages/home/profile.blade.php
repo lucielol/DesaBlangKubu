@@ -5,8 +5,10 @@
     <!-- Hero Section -->
     <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white rounded-xl border border-blue-500">
       <div class="container mx-auto px-4 py-16">
-        <h1 class="text-4xl font-bold text-center mb-4">Profil Desa Blang Kubu</h1>
-        <p class="text-xl text-center text-blue-100">Kabupaten Bireuen, Aceh</p>
+        <h1 class="text-4xl font-bold text-center mb-4">Profil {{ $villageProfile->village_name ?? 'Desa Blang Kubu' }}
+        </h1>
+        <p class="text-xl text-center text-blue-100">{{ $villageProfile->district ?? 'Peudada' }},
+          {{ $villageProfile->regency ?? 'Bireuen' }}, {{ $villageProfile->province ?? 'Aceh' }}</p>
       </div>
     </div>
 
@@ -35,8 +37,7 @@
               <h3 class="text-2xl font-bold text-gray-800">Visi</h3>
             </div>
             <p class="text-gray-600 leading-relaxed">
-              "Terwujudnya Desa Blang Kubu yang Maju, Mandiri, dan Sejahtera dengan Masyarakat yang Berakhlak Mulia,
-              Berbudaya, dan Berwawasan Lingkungan"
+              "{{ $villageProfile->vision ?? 'Terwujudnya Desa Blang Kubu yang Maju, Mandiri, dan Sejahtera dengan Masyarakat yang Berakhlak Mulia, Berbudaya, dan Berwawasan Lingkungan' }}"
             </p>
           </div>
 
@@ -52,26 +53,37 @@
               <h3 class="text-2xl font-bold text-gray-800">Misi</h3>
             </div>
             <ul class="text-gray-600 space-y-2">
-              <li class="flex items-start">
-                <span class="text-green-600 mr-2">•</span>
-                Meningkatkan kualitas pendidikan dan kesehatan masyarakat
-              </li>
-              <li class="flex items-start">
-                <span class="text-green-600 mr-2">•</span>
-                Mengembangkan perekonomian desa berbasis potensi lokal
-              </li>
-              <li class="flex items-start">
-                <span class="text-green-600 mr-2">•</span>
-                Membangun infrastruktur desa yang berkelanjutan
-              </li>
-              <li class="flex items-start">
-                <span class="text-green-600 mr-2">•</span>
-                Meningkatkan pelayanan publik yang transparan dan akuntabel
-              </li>
-              <li class="flex items-start">
-                <span class="text-green-600 mr-2">•</span>
-                Melestarikan nilai-nilai budaya dan adat istiadat
-              </li>
+              @if ($villageProfile && $villageProfile->mission)
+                @foreach (explode("\n", $villageProfile->mission) as $mission)
+                  @if (trim($mission))
+                    <li class="flex items-start">
+                      <span class="text-green-600 mr-2">•</span>
+                      {{ trim(str_replace('•', '', $mission)) }}
+                    </li>
+                  @endif
+                @endforeach
+              @else
+                <li class="flex items-start">
+                  <span class="text-green-600 mr-2">•</span>
+                  Meningkatkan kualitas pendidikan dan kesehatan masyarakat
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-600 mr-2">•</span>
+                  Mengembangkan perekonomian desa berbasis potensi lokal
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-600 mr-2">•</span>
+                  Membangun infrastruktur desa yang berkelanjutan
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-600 mr-2">•</span>
+                  Meningkatkan pelayanan publik yang transparan dan akuntabel
+                </li>
+                <li class="flex items-start">
+                  <span class="text-green-600 mr-2">•</span>
+                  Melestarikan nilai-nilai budaya dan adat istiadat
+                </li>
+              @endif
             </ul>
           </div>
         </div>
@@ -95,7 +107,7 @@
                 </svg>
               </div>
               <h3 class="text-xl font-bold text-gray-800 mb-2">Kepala Desa</h3>
-              <p class="text-gray-600">Ahmad Syafiq</p>
+              <p class="text-gray-600">{{ $villageProfile->head_village_name ?? 'Ahmad Syafiq' }}</p>
             </div>
 
             <!-- Sekretaris Desa -->
@@ -108,7 +120,7 @@
                 </svg>
               </div>
               <h3 class="text-xl font-bold text-gray-800 mb-2">Sekretaris Desa</h3>
-              <p class="text-gray-600">Muhammad Rizki</p>
+              <p class="text-gray-600">{{ $villageProfile->secretary_name ?? 'Muhammad Rizki' }}</p>
             </div>
 
             <!-- Kaur Keuangan -->
@@ -121,7 +133,7 @@
                 </svg>
               </div>
               <h3 class="text-xl font-bold text-gray-800 mb-2">Kaur Keuangan</h3>
-              <p class="text-gray-600">Siti Aminah</p>
+              <p class="text-gray-600">{{ $villageProfile->treasurer_name ?? 'Siti Aminah' }}</p>
             </div>
           </div>
 
@@ -131,11 +143,11 @@
             <div class="grid md:grid-cols-2 gap-6">
               <div class="text-center">
                 <h4 class="text-lg font-semibold text-gray-800 mb-2">Ketua BPD</h4>
-                <p class="text-gray-600">Abdul Rahman</p>
+                <p class="text-gray-600">{{ $villageProfile->bpd_chairman ?? 'Abdul Rahman' }}</p>
               </div>
               <div class="text-center">
                 <h4 class="text-lg font-semibold text-gray-800 mb-2">Wakil Ketua BPD</h4>
-                <p class="text-gray-600">Fatimah Zahra</p>
+                <p class="text-gray-600">{{ $villageProfile->bpd_vice_chairman ?? 'Fatimah Zahra' }}</p>
               </div>
             </div>
           </div>
@@ -152,27 +164,7 @@
         <div class="bg-white rounded-xl border border-gray-300 p-8">
           <div class="prose max-w-none">
             <p class="text-gray-600 leading-relaxed mb-6">
-              Desa Blang Kubu memiliki sejarah yang panjang dan menarik. Berdasarkan cerita turun-temurun dari para tetua
-              desa,
-              nama "Blang Kubu" berasal dari dua kata dalam bahasa Aceh: "Blang" yang berarti sawah/ladang dan "Kubu" yang
-              berarti
-              benteng/pertahanan.
-            </p>
-
-            <p class="text-gray-600 leading-relaxed mb-6">
-              Konon pada masa lampau, wilayah ini merupakan area persawahan yang subur dan strategis. Para petani dan
-              penduduk
-              setempat membangun kubu (benteng) untuk melindungi sawah dan pemukiman mereka dari serangan musuh. Seiring
-              berjalannya
-              waktu, kawasan ini berkembang menjadi sebuah desa yang makmur.
-            </p>
-
-            <p class="text-gray-600 leading-relaxed mb-6">
-              Desa Blang Kubu secara resmi berdiri pada tahun 1920-an dan telah mengalami berbagai perubahan seiring
-              dengan
-              perkembangan zaman. Dari awalnya hanya beberapa keluarga, kini desa ini telah berkembang menjadi desa yang
-              maju
-              dengan jumlah penduduk yang terus bertambah.
+              {{ $villageProfile->history ?? 'Desa Blang Kubu memiliki sejarah yang panjang dan menarik. Berdasarkan cerita turun-temurun dari para tetua desa, nama "Blang Kubu" berasal dari dua kata dalam bahasa Aceh: "Blang" yang berarti sawah/ladang dan "Kubu" yang berarti benteng/pertahanan.' }}
             </p>
 
             <div class="grid md:grid-cols-3 gap-6 mt-8">
@@ -206,7 +198,7 @@
             <div class="w-full">
               <iframe
                 class="w-full h-64 sm:h-80 md:h-96 lg:h-[400px] xl:h-[450px] rounded-t-xl md:rounded-l-xl md:rounded-t-none"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7946.752966207239!2d96.577174!3d5.20337945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30474ff7f25f4faf%3A0x6219631d6c85562b!2sBlang%20Kubu%2C%20Kec.%20Peudada%2C%20Kabupaten%20Bireuen%2C%20Aceh!5e0!3m2!1sid!2sid!4v1756108848179!5m2!1sid!2sid"
+                src="{{ $villageProfile->google_maps_url ?? 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7946.752966207239!2d96.577174!3d5.20337945!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30474ff7f25f4faf%3A0x6219631d6c85562b!2sBlang%20Kubu%2C%20Kec.%20Peudada%2C%20Kabupaten%20Bireuen%2C%20Aceh!5e0!3m2!1sid!2sid!4v1756108848179!5m2!1sid!2sid' }}"
                 allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
 
@@ -226,7 +218,7 @@
                   </div>
                   <div>
                     <h4 class="font-semibold text-gray-800">Luas Wilayah</h4>
-                    <p class="text-gray-600 text-sm">2.5 km²</p>
+                    <p class="text-gray-600 text-sm">{{ $villageProfile->area_size ?? '2.5 km²' }}</p>
                   </div>
                 </div>
 
@@ -241,10 +233,18 @@
                   <div>
                     <h4 class="font-semibold text-gray-800">Batas Wilayah</h4>
                     <ul class="text-gray-600 text-sm space-y-1">
-                      <li>• Utara: Desa Seunudon</li>
-                      <li>• Selatan: Desa Cot Kruet</li>
-                      <li>• Barat: Desa Blang Cut</li>
-                      <li>• Timur: Desa Meunasah Dayah</li>
+                      @if ($villageProfile && $villageProfile->boundaries)
+                        @foreach (explode("\n", $villageProfile->boundaries) as $boundary)
+                          @if (trim($boundary))
+                            <li>{{ trim(str_replace('•', '', $boundary)) }}</li>
+                          @endif
+                        @endforeach
+                      @else
+                        <li>• Utara: Desa Seunudon</li>
+                        <li>• Selatan: Desa Cot Kruet</li>
+                        <li>• Barat: Desa Blang Cut</li>
+                        <li>• Timur: Desa Meunasah Dayah</li>
+                      @endif
                     </ul>
                   </div>
                 </div>
@@ -258,7 +258,8 @@
                   </div>
                   <div>
                     <h4 class="font-semibold text-gray-800">Topografi</h4>
-                    <p class="text-gray-600 text-sm">Dataran rendah dengan ketinggian 5-15 meter di atas permukaan laut
+                    <p class="text-gray-600 text-sm">
+                      {{ $villageProfile->topography ?? 'Dataran rendah dengan ketinggian 5-15 meter di atas permukaan laut' }}
                     </p>
                   </div>
                 </div>
@@ -273,7 +274,8 @@
                   </div>
                   <div>
                     <h4 class="font-semibold text-gray-800">Iklim</h4>
-                    <p class="text-gray-600 text-sm">Tropis basah dengan curah hujan 2000-3000 mm per tahun</p>
+                    <p class="text-gray-600 text-sm">
+                      {{ $villageProfile->climate ?? 'Tropis basah dengan curah hujan 2000-3000 mm per tahun' }}</p>
                   </div>
                 </div>
               </div>
