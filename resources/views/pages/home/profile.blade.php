@@ -138,7 +138,7 @@
           </div>
 
           <!-- Badan Permusyawaratan Desa -->
-          <div class="mt-12 pt-8 border-t border-gray-200">
+          <div class="mt-12 pt-8 border-t border-gray-300">
             <h3 class="text-2xl font-bold text-gray-800 text-center mb-6">Badan Permusyawaratan Desa (BPD)</h3>
             <div class="grid md:grid-cols-2 gap-6">
               <div class="text-center">
